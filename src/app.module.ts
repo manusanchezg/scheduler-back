@@ -4,8 +4,9 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule } from '@nestjs/config';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { join } from 'path';
-import { ItemsModule } from './items/items.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AppointmentsModule } from './appointments/appointments.module';
+import { BusinessModule } from './business/business.module';
 import 'dotenv/config';
 
 @Module({
@@ -28,7 +29,8 @@ import 'dotenv/config';
       synchronize: true,
       autoLoadEntities: true,
     }),
-    ItemsModule,
+    AppointmentsModule,
+    BusinessModule,
   ],
   controllers: [],
   providers: [],

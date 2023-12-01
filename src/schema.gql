@@ -2,28 +2,74 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Item {
-  """Example field (placeholder)"""
-  exampleField: Int!
+type Appointment {
+  id: ID!
+  username: String!
+  user_tel: String!
+  business_id: String!
+  service_id: String!
+  employee_id: String!
+  date_time: DateTime!
+  status: [String!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Business {
+  business_id: ID!
+  business_name: String!
+  business_address: String!
+  business_description: String!
+  business_type: String!
+  opening_hours: String!
+  closing_hours: String!
 }
 
 type Query {
-  items: [Item!]!
-  item(id: Int!): Item!
+  appointments: [Appointment!]!
+  appointment(id: Int!): Appointment!
+  business(id: Int!): Business!
 }
 
 type Mutation {
-  createItem(createItemInput: CreateItemInput!): Item!
-  updateItem(updateItemInput: UpdateItemInput!): Item!
-  removeItem(id: Int!): Item!
+  createAppointment(createAppointmentInput: CreateAppointmentInput!): Appointment!
+  updateAppointment(updateAppointmentInput: UpdateAppointmentInput!): Appointment!
+  removeAppointment(id: Int!): Appointment!
+  createBusiness(createBusinessInput: CreateBusinessInput!): Business!
+  updateBusiness(updateBusinessInput: UpdateBusinessInput!): Business!
+  removeBusiness(id: Int!): Business!
 }
 
-input CreateItemInput {
+input CreateAppointmentInput {
+  username: String!
+  user_tel: String!
+  business_id: String!
+  service_id: String!
+  employee_id: String!
+  date_time: DateTime!
+  status: String!
+}
+
+input UpdateAppointmentInput {
+  username: String
+  user_tel: String
+  business_id: String
+  service_id: String
+  employee_id: String
+  date_time: DateTime
+  status: String
+  id: Int!
+}
+
+input CreateBusinessInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
 
-input UpdateItemInput {
+input UpdateBusinessInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
