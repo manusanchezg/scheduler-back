@@ -14,28 +14,32 @@ export class BusinessResolver {
     return this.businessService.create(createBusinessInput);
   }
 
-  @Query(() => [Business], { name: 'business' })
-  findAll() {
-    return this.businessService.findAll();
+  @Query(() => [Business], { name: 'getBusinesses' })
+  async findAll(): Promise<Business[]> {
+    return await this.businessService.findAll();
   }
 
   @Query(() => Business, { name: 'business' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.businessService.findOne(id);
+  async findOne(
+    @Args('id', { type: () => String }) id: string,
+  ): Promise<Business> {
+    return await this.businessService.findOne(id);
   }
 
   @Mutation(() => Business)
-  updateBusiness(
+  async updateBusiness(
     @Args('updateBusinessInput') updateBusinessInput: UpdateBusinessInput,
-  ) {
-    return this.businessService.update(
-      updateBusinessInput.id,
+  ): Promise<Business> {
+    return await this.businessService.update(
+      updateBusinessInput.business_id,
       updateBusinessInput,
     );
   }
 
   @Mutation(() => Business)
-  removeBusiness(@Args('id', { type: () => Int }) id: number) {
-    return this.businessService.remove(id);
+  async removeBusiness(
+    @Args('id', { type: () => Int }) id: string,
+  ): Promise<Business> {
+    return await this.businessService.remove(id);
   }
 }

@@ -31,7 +31,8 @@ type Business {
 type Query {
   appointments: [Appointment!]!
   appointment(id: Int!): Appointment!
-  business(id: Int!): Business!
+  getBusinesses: [Business!]!
+  business(id: String!): Business!
 }
 
 type Mutation {
@@ -67,8 +68,8 @@ input UpdateAppointmentInput {
 input CreateBusinessInput {
   business_name: String!
   business_address: String!
-  business_description: String!
-  business_type: String!
+  business_description: String
+  business_type: String
   opening_hours: String!
   closing_hours: String!
 }
@@ -80,5 +81,5 @@ input UpdateBusinessInput {
   business_type: String
   opening_hours: String
   closing_hours: String
-  id: Int!
+  business_id: ID!
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateBusinessInput, UpdateBusinessInput } from './dto/inputs';
 import { Business } from './entities/business.entity';
 import { Repository } from 'typeorm';
@@ -15,19 +15,35 @@ export class BusinessService {
     return await this.businessRepository.save(newBusiness);
   }
 
-  findAll() {
-    return `This action returns all business`;
+  async findAll(): Promise<Business[]> {
+    return await this.businessRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} business`;
+  async findOne(id: string): Promise<Business> {
+    const business = this.businessRepository.findOneBy({
+      business_id: id,
+    });
+    if (!business)
+      throw new NotFoundException(`Business with id #${id} not found`);
+    return business;
   }
 
-  update(id: number, updateBusinessInput: UpdateBusinessInput) {
-    return `This action updates a #${id} business`;
+  async update(
+    id: string,
+    updateBusinessInput: UpdateBusinessInput,
+  ): Promise<Business> {
+    await this.findOne(id);
+    const business = await this.businessRepository.preload(updateBusinessInput);
+
+    if (!business)
+      throw new NotFoundException(`Business with id #${id} not found`);
+
+    return this.businessRepository.save(business);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} business`;
+  async remove(id: string): Promise<Business> {
+    const business = this.findOne(id);
+    await this.businessRepository.softDelete(id);
+    return { ...business, business_id: id };
   }
 }
