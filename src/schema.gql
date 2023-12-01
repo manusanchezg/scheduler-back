@@ -22,8 +22,8 @@ type Business {
   business_id: ID!
   business_name: String!
   business_address: String!
-  business_description: String!
-  business_type: String!
+  business_description: String
+  business_type: String
   opening_hours: String!
   closing_hours: String!
 }
@@ -65,12 +65,20 @@ input UpdateAppointmentInput {
 }
 
 input CreateBusinessInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  business_name: String!
+  business_address: String!
+  business_description: String!
+  business_type: String!
+  opening_hours: String!
+  closing_hours: String!
 }
 
 input UpdateBusinessInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  business_name: String
+  business_address: String
+  business_description: String
+  business_type: String
+  opening_hours: String
+  closing_hours: String
   id: Int!
 }
