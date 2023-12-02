@@ -1,11 +1,11 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
-import { IsNotEmpty, Min, IsOptional } from 'class-validator';
+import { IsNotEmpty, MinLength, IsOptional } from 'class-validator';
 
 @InputType()
 export class CreateBusinessInput {
   @Field(() => String)
   @IsNotEmpty()
-  // @Min(4)
+  @MinLength(4)
   business_name: string;
 
   @Field(() => String)

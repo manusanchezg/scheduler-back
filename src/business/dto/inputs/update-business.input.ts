@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsOptional, IsUUID, Min } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsUUID, MinLength } from 'class-validator';
 import { CreateBusinessInput } from './create-business.input';
 import { InputType, Field, Int, PartialType, ID } from '@nestjs/graphql';
 
@@ -11,7 +11,7 @@ export class UpdateBusinessInput extends PartialType(CreateBusinessInput) {
 
   @Field(() => String, { nullable: true })
   @IsOptional()
-  // @Min(4)
+  @MinLength(4)
   business_name?: string;
 
   @Field(() => String, { nullable: true })

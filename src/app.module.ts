@@ -1,13 +1,17 @@
+import { join } from 'path';
+import 'dotenv/config';
+
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule } from '@nestjs/config';
-import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
-import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+
 import { AppointmentsModule } from './appointments/appointments.module';
 import { BusinessModule } from './business/business.module';
-import 'dotenv/config';
+import { AvailabilityModule } from './availability/availability.module';
 
 @Module({
   imports: [
@@ -31,6 +35,7 @@ import 'dotenv/config';
     }),
     AppointmentsModule,
     BusinessModule,
+    AvailabilityModule,
   ],
   controllers: [],
   providers: [],
