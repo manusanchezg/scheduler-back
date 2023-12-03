@@ -1,4 +1,5 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { IsOptional } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'business' })
@@ -31,4 +32,14 @@ export class Business {
   @Column('varchar')
   @Field(() => String)
   closing_hours: string;
+
+  @Column('bytea', { nullable: true })
+  @Field(() => String, { nullable: true })
+  @IsOptional()
+  profile_pic: Buffer;
+
+  @Column('varchar', { nullable: true })
+  @Field(() => [String], { nullable: true })
+  @IsOptional()
+  images: String[];
 }

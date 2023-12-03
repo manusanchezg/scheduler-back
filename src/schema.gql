@@ -26,6 +26,8 @@ type Business {
   business_type: String
   opening_hours: String!
   closing_hours: String!
+  profile_pic: String
+  images: [String!]
 }
 
 type Availability {
@@ -42,18 +44,28 @@ type User {
 }
 
 type CreditCard {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  cc_id: ID!
+  user_id: String!
+  card_number: String!
+  card_holder_name: String!
+  expiry_date: DateTime!
+  cvv: Float!
 }
 
 type Service {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  service_id: ID!
+  service_name: String!
+  service_duration: Float!
+  service_price: Float!
+  service_description: String
+  business_id: String!
 }
 
 type Employee {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  employee_id: ID!
+  employee_name: String!
+  employee_position: String
+  business_id: String!
 }
 
 type Query {
