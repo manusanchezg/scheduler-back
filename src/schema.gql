@@ -28,11 +28,44 @@ type Business {
   closing_hours: String!
 }
 
+type Availability {
+  av_id: ID!
+  day_of_week: String!
+  start_time: String!
+  duration: Float!
+  business_id: String!
+}
+
+type User {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type CreditCard {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Service {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Employee {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 type Query {
   appointments: [Appointment!]!
   appointment(id: Int!): Appointment!
   getBusinesses: [Business!]!
   business(id: String!): Business!
+  availability(id: Int!): Availability!
+  user(id: Int!): User!
+  creditCard(id: Int!): CreditCard!
+  service(id: Int!): Service!
+  employee(id: Int!): Employee!
 }
 
 type Mutation {
@@ -42,6 +75,21 @@ type Mutation {
   createBusiness(createBusinessInput: CreateBusinessInput!): Business!
   updateBusiness(updateBusinessInput: UpdateBusinessInput!): Business!
   removeBusiness(id: Int!): Business!
+  createAvailability(createAvailabilityInput: CreateAvailabilityInput!): Availability!
+  updateAvailability(updateAvailabilityInput: UpdateAvailabilityInput!): Availability!
+  removeAvailability(id: Int!): Availability!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User!
+  createCreditCard(createCreditCardInput: CreateCreditCardInput!): CreditCard!
+  updateCreditCard(updateCreditCardInput: UpdateCreditCardInput!): CreditCard!
+  removeCreditCard(id: Int!): CreditCard!
+  createService(createServiceInput: CreateServiceInput!): Service!
+  updateService(updateServiceInput: UpdateServiceInput!): Service!
+  removeService(id: Int!): Service!
+  createEmployee(createEmployeeInput: CreateEmployeeInput!): Employee!
+  updateEmployee(updateEmployeeInput: UpdateEmployeeInput!): Employee!
+  removeEmployee(id: Int!): Employee!
 }
 
 input CreateAppointmentInput {
@@ -82,4 +130,59 @@ input UpdateBusinessInput {
   opening_hours: String
   closing_hours: String
   business_id: ID!
+}
+
+input CreateAvailabilityInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateAvailabilityInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateCreditCardInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateCreditCardInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateServiceInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateServiceInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateEmployeeInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateEmployeeInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }

@@ -12,6 +12,10 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { AppointmentsModule } from './appointments/appointments.module';
 import { BusinessModule } from './business/business.module';
 import { AvailabilityModule } from './availability/availability.module';
+import { UserModule } from './user/user.module';
+import { CreditCardModule } from './credit-card/credit-card.module';
+import { ServiceModule } from './service/service.module';
+import { EmployeeModule } from './employee/employee.module';
 
 @Module({
   imports: [
@@ -36,6 +40,10 @@ import { AvailabilityModule } from './availability/availability.module';
     AppointmentsModule,
     BusinessModule,
     AvailabilityModule,
+    UserModule,
+    CreditCardModule,
+    ServiceModule,
+    EmployeeModule,
   ],
   controllers: [],
   providers: [],
