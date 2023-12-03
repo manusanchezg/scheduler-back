@@ -30,7 +30,7 @@ export class CreditCard {
   @IsNotEmpty()
   expiry_date: Date;
   
-  @Column('number')
+  @Column('int2')
   @Field(() => Number)
   @IsNotEmpty()
   cvv: number;

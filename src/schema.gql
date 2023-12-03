@@ -39,8 +39,11 @@ type Availability {
 }
 
 type User {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  user_id: ID!
+  username: String!
+  password: String!
+  email: String!
+  phone_number: String!
 }
 
 type CreditCard {
