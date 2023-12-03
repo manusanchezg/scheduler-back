@@ -2,7 +2,7 @@ import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { IsEmail, IsNotEmpty, IsPhoneNumber } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'user' })
+@Entity({ name: 'users' })
 @ObjectType()
 export class User {
   @Field(() => ID)
@@ -10,11 +10,11 @@ export class User {
   user_id: string;
 
   @Field(() => String)
-  @Column('varchar')
+  @Column('varchar', { unique: true })
   @IsNotEmpty()
   username: string;
 
-  @Field(() => String)
+  // @Field(() => String)
   @Column('varchar')
   @IsNotEmpty()
   password: string;
@@ -25,7 +25,14 @@ export class User {
   email: string;
 
   @Field(() => String)
-  @Column('varchar')
+  @Column('varchar', { unique: true })
   @IsPhoneNumber()
   phone_number: string;
+
+  @Field(() => Boolean)
+  @Column({
+    type: 'boolean',
+    default: true,
+  })
+  isBlocked: boolean;
 }

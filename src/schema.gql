@@ -41,9 +41,9 @@ type Availability {
 type User {
   user_id: ID!
   username: String!
-  password: String!
   email: String!
   phone_number: String!
+  isBlocked: Boolean!
 }
 
 type CreditCard {
@@ -71,13 +71,18 @@ type Employee {
   business_id: String!
 }
 
+type AuthResponse {
+  token: String!
+  user: User!
+}
+
 type Query {
   appointments: [Appointment!]!
   appointment(id: Int!): Appointment!
   getBusinesses: [Business!]!
   business(id: String!): Business!
   availability(id: Int!): Availability!
-  user(id: Int!): User!
+  users: [User!]!
   creditCard(id: Int!): CreditCard!
   service(id: Int!): Service!
   employee(id: Int!): Employee!
@@ -93,9 +98,7 @@ type Mutation {
   createAvailability(createAvailabilityInput: CreateAvailabilityInput!): Availability!
   updateAvailability(updateAvailabilityInput: UpdateAvailabilityInput!): Availability!
   removeAvailability(id: Int!): Availability!
-  createUser(createUserInput: CreateUserInput!): User!
-  updateUser(updateUserInput: UpdateUserInput!): User!
-  removeUser(id: Int!): User!
+  blockUser(id: ID!): User!
   createCreditCard(createCreditCardInput: CreateCreditCardInput!): CreditCard!
   updateCreditCard(updateCreditCardInput: UpdateCreditCardInput!): CreditCard!
   removeCreditCard(id: Int!): CreditCard!
@@ -105,6 +108,8 @@ type Mutation {
   createEmployee(createEmployeeInput: CreateEmployeeInput!): Employee!
   updateEmployee(updateEmployeeInput: UpdateEmployeeInput!): Employee!
   removeEmployee(id: Int!): Employee!
+  signup(signupInput: SignupInput!): AuthResponse!
+  login(loginInput: LoginInput!): AuthResponse!
 }
 
 input CreateAppointmentInput {
@@ -158,17 +163,6 @@ input UpdateAvailabilityInput {
   id: Int!
 }
 
-input CreateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
-}
-
 input CreateCreditCardInput {
   """Example field (placeholder)"""
   exampleField: Int!
@@ -200,4 +194,16 @@ input UpdateEmployeeInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
+}
+
+input SignupInput {
+  email: String!
+  username: String!
+  password: String!
+  phone_number: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
 }

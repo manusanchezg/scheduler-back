@@ -16,6 +16,7 @@ import { UserModule } from './user/user.module';
 import { CreditCardModule } from './credit-card/credit-card.module';
 import { ServiceModule } from './service/service.module';
 import { EmployeeModule } from './employee/employee.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { EmployeeModule } from './employee/employee.module';
     CreditCardModule,
     ServiceModule,
     EmployeeModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
