@@ -1,10 +1,15 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
 import { UserService } from '../user/user.service';
 import { LoginInput, SignupInput } from './dto/inputs';
 import { AuthResponse } from './dto/types/auth-response.type';
+import { User } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -32,6 +37,22 @@ export class AuthService {
       throw new BadRequestException('Email/Password do not match');
     }
 
+    return {
+      token,
+      user,
+    };
+  }
+
+  async validateUser(id: string): Promise<User> {
+    const user = await this.usersService.findOneById(id);
+    if (!user.isBlocked)
+      throw new UnauthorizedException('User is inactive, talk with an admin');
+    delete user.password;
+    return user;
+  }
+
+  revalidateToken(user: User): AuthResponse {
+    const token = this.getJwtToken(user.user_id);
     return {
       token,
       user,

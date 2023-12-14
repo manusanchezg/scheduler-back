@@ -86,6 +86,7 @@ type Query {
   creditCard(id: Int!): CreditCard!
   service(id: Int!): Service!
   employee(id: Int!): Employee!
+  revalidate: AuthResponse!
 }
 
 type Mutation {
@@ -175,13 +176,19 @@ input UpdateCreditCardInput {
 }
 
 input CreateServiceInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  service_name: String!
+  service_duration: Float!
+  service_price: Float!
+  service_description: String
+  business_id: String!
 }
 
 input UpdateServiceInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  service_name: String
+  service_duration: Float
+  service_price: Float
+  service_description: String
+  business_id: String
   id: Int!
 }
 

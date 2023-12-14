@@ -4,18 +4,26 @@ import { ConfigService } from '@nestjs/config';
 
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { User } from '../../user/entities/user.entity';
+import { JwtPayload } from '../interfaces/jwt-payload.interface';
+import { AuthService } from '../auth.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(configService: ConfigService) {
+  constructor(
+    private readonly authService: AuthService,
+    configService: ConfigService,
+  ) {
     super({
       secretOrKey: configService.get('JWT_SECRET'),
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
   }
 
-  async validate(payload: any): Promise<User> {
-    console.log(payload)
-    throw new UnauthorizedException("Token not valid :(")
+  async validate(payload: JwtPayload): Promise<User> {
+    const { id } = payload;
+
+    const user = await this.authService.validateUser(id);
+
+    return user;
   }
 }

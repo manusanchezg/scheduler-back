@@ -9,8 +9,10 @@ export class ServiceResolver {
   constructor(private readonly serviceService: ServiceService) {}
 
   @Mutation(() => Service)
-  createService(@Args('createServiceInput') createServiceInput: CreateServiceInput) {
-    return this.serviceService.create(createServiceInput);
+  async createService(
+    @Args('createServiceInput') createServiceInput: CreateServiceInput,
+  ): Promise<Service> {
+    return await this.serviceService.create(createServiceInput);
   }
 
   @Query(() => [Service], { name: 'service' })
@@ -24,8 +26,13 @@ export class ServiceResolver {
   }
 
   @Mutation(() => Service)
-  updateService(@Args('updateServiceInput') updateServiceInput: UpdateServiceInput) {
-    return this.serviceService.update(updateServiceInput.id, updateServiceInput);
+  updateService(
+    @Args('updateServiceInput') updateServiceInput: UpdateServiceInput,
+  ) {
+    return this.serviceService.update(
+      updateServiceInput.id,
+      updateServiceInput,
+    );
   }
 
   @Mutation(() => Service)
