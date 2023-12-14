@@ -1,5 +1,8 @@
-import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Business } from 'src/business/entities/business.entity';
+import { Employee } from 'src/employee/entities/employee.entity';
+import { Service } from 'src/service/entities/service.entity';
 
 @Entity({ name: 'appointments' })
 @ObjectType()
@@ -16,15 +19,18 @@ export class Appointment {
   @Field(() => String)
   user_tel: string;
 
-  @Column('uuid')
+  // @Column('uuid')
+  @ManyToOne(() => Business, (business) => business.business_id)
   @Field(() => String)
   business_id: string;
 
-  @Column('uuid')
+  // @Column('uuid')
+  @ManyToOne(() => Service, (service) => service.service_id)
   @Field(() => String)
   service_id: string;
 
-  @Column('uuid')
+  // @Column('uuid')
+  @ManyToOne(() => Employee, (employee) => employee.employee_id)
   @Field(() => String)
   employee_id: string;
 

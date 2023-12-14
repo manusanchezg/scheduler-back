@@ -1,6 +1,7 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { IsNotEmpty, IsUUID } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/user/entities/user.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'credit_card' })
 @ObjectType()
@@ -9,7 +10,8 @@ export class CreditCard {
   @Field(() => ID)
   cc_id: string;
 
-  @Column('uuid')
+  // @Column('uuid')
+  @ManyToOne(() => User, user => user.user_id)
   @Field(() => String)
   @IsUUID()
   @IsNotEmpty()

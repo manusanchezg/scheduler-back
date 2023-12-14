@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int, ID, Float } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Business } from 'src/business/entities/business.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'availability' })
 @ObjectType()
@@ -38,6 +39,7 @@ export class Availability {
   duration: number;
 
   @Field(() => String)
-  @Column('uuid')
+  // @Column('uuid')
+  @ManyToOne(() => Business, business => business.business_id)
   business_id: string;
 }
