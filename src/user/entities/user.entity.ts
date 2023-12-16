@@ -35,4 +35,12 @@ export class User {
     default: true,
   })
   isBlocked: boolean;
+
+  @Column({
+    type: 'text',
+    array: true,
+    default: ['user'],
+  })
+  @Field(() => [String])
+  roles: string[];
 }

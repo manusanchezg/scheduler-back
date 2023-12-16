@@ -60,6 +60,7 @@ type User {
   email: String!
   phone_number: String!
   isBlocked: Boolean!
+  roles: [String!]!
 }
 
 type CreditCard {
