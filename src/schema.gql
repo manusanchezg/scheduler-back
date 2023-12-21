@@ -83,11 +83,18 @@ type Query {
   getBusinesses: [Business!]!
   business(id: String!): Business!
   availability(id: Int!): Availability!
-  users: [User!]!
+  users(roles: [ValidRoles!] = []): [User!]!
   creditCard(id: Int!): CreditCard!
+  services: [Service!]!
   service(id: Int!): Service!
   employee(id: Int!): Employee!
   revalidate: AuthResponse!
+}
+
+enum ValidRoles {
+  admin
+  user
+  superUser
 }
 
 type Mutation {
@@ -189,8 +196,8 @@ input UpdateServiceInput {
   service_duration: Float
   service_price: Float
   service_description: String
-  business_id: String
-  id: Int!
+  business_id: ID!
+  service_id: ID!
 }
 
 input CreateEmployeeInput {

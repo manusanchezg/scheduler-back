@@ -1,8 +1,14 @@
+import { IsUUID } from 'class-validator';
 import { CreateServiceInput } from './create-service.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, PartialType, ID } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateServiceInput extends PartialType(CreateServiceInput) {
-  @Field(() => Int)
-  id: number;
+  @Field(() => ID)
+  @IsUUID()
+  service_id: string;
+
+  @Field(() => ID)
+  @IsUUID()
+  business_id: string;
 }

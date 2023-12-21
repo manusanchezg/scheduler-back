@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateServiceInput } from './dto/create-service.input';
 import { UpdateServiceInput } from './dto/update-service.input';
 import { Service } from './entities/service.entity';
@@ -16,19 +16,36 @@ export class ServiceService {
     return await this.serviceRepository.save(newService);
   }
 
-  findAll() {
-    return `This action returns all service`;
+  async findAll(): Promise<Service[]> {
+    return await this.serviceRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} service`;
+  async findOne(id: string): Promise<Service> {
+    const service = this.serviceRepository.findOneBy({
+      service_id: id,
+    });
+    if (!service)
+      throw new NotFoundException(`Service with id #${id} not found`);
+
+    return service;
   }
 
-  update(id: number, updateServiceInput: UpdateServiceInput) {
-    return `This action updates a #${id} service`;
+  async update(
+    id: string,
+    updateServiceInput: UpdateServiceInput,
+  ): Promise<Service> {
+    await this.findOne(id);
+    const service = await this.serviceRepository.preload(updateServiceInput);
+
+    if (!service)
+      throw new NotFoundException(`Service with id #${id} not found`);
+
+    return this.serviceRepository.save(service);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} service`;
+  async remove(id: string): Promise<Service> {
+    const service = this.findOne(id);
+    await this.serviceRepository.softDelete(id);
+    return { ...service, service_id: id };
   }
 }

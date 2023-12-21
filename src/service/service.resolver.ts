@@ -15,28 +15,32 @@ export class ServiceResolver {
     return await this.serviceService.create(createServiceInput);
   }
 
-  @Query(() => [Service], { name: 'service' })
-  findAll() {
-    return this.serviceService.findAll();
+  @Query(() => [Service], { name: 'services' })
+  async findAll(): Promise<Service[]> {
+    return await this.serviceService.findAll();
   }
 
   @Query(() => Service, { name: 'service' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.serviceService.findOne(id);
+  async findOneById(
+    @Args('id', { type: () => Int }) id: string,
+  ): Promise<Service> {
+    return await this.serviceService.findOne(id);
   }
 
   @Mutation(() => Service)
-  updateService(
+  async updateService(
     @Args('updateServiceInput') updateServiceInput: UpdateServiceInput,
-  ) {
-    return this.serviceService.update(
-      updateServiceInput.id,
+  ): Promise<Service> {
+    return await this.serviceService.update(
+      updateServiceInput.service_id,
       updateServiceInput,
     );
   }
 
   @Mutation(() => Service)
-  removeService(@Args('id', { type: () => Int }) id: number) {
-    return this.serviceService.remove(id);
+  async removeService(
+    @Args('id', { type: () => Int }) id: string,
+  ): Promise<Service> {
+    return await this.serviceService.remove(id);
   }
 }
