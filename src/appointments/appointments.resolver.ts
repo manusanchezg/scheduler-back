@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
 import { AppointmentsService } from './appointments.service';
 import { Appointment } from './entities/appointment.entity';
 import { CreateAppointmentInput, UpdateAppointmentInput } from './dto/inputs';
@@ -16,28 +16,28 @@ export class AppointmentsResolver {
   }
 
   @Query(() => [Appointment], { name: 'appointments' })
-  findAll() {
-    return this.appointmentsService.findAll();
+  async findAll(): Promise<Appointment[]> {
+    return await this.appointmentsService.findAll();
   }
 
   @Query(() => Appointment, { name: 'appointment' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.appointmentsService.findOne(id);
+  async findOne(@Args('id', { type: () => ID }) id: string): Promise<Appointment> {
+    return await this.appointmentsService.findOneById(id);
   }
 
   @Mutation(() => Appointment)
-  updateAppointment(
+  async updateAppointment(
     @Args('updateAppointmentInput')
     updateAppointmentInput: UpdateAppointmentInput,
-  ) {
-    return this.appointmentsService.update(
+  ): Promise<Appointment> {
+    return await this.appointmentsService.update(
       updateAppointmentInput.id,
       updateAppointmentInput,
     );
   }
 
   @Mutation(() => Appointment)
-  removeAppointment(@Args('id', { type: () => Int }) id: number) {
+  removeAppointment(@Args('id', { type: () => ID }) id: string) {
     return this.appointmentsService.remove(id);
   }
 }

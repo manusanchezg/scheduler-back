@@ -84,6 +84,7 @@ type Query {
   business(id: String!): Business!
   availability(id: Int!): Availability!
   users(roles: [ValidRoles!] = []): [User!]!
+  user(id: ID!): User!
   creditCard(id: Int!): CreditCard!
   services: [Service!]!
   service(id: Int!): Service!
