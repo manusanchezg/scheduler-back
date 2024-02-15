@@ -40,7 +40,9 @@ export class Appointment {
 
   @Column({
     enum: ['approved', 'canceled', 'postponed', 'pending'],
+    nullable: true,
+    default: 'pending',
   })
-  @Field(() => [String])
-  status: 'approved' | 'canceled' | 'postponed' | 'pending';
+  @Field(() => String, { defaultValue: 'pending', nullable: true })
+  status?: 'approved' | 'canceled' | 'postponed' | 'pending' = 'pending';
 }

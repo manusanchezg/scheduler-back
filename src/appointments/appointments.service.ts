@@ -44,8 +44,11 @@ export class AppointmentsService {
     if (!appointment) {
       throw new NotFoundException(`Appointment with id #${id} not found`);
     }
+    console.log(appointment)
 
-    return this.appointmentsRepository.save(appointment);
+    // TODO: No overload matches this call i dont know why?
+    // return this.appointmentsRepository.save(appointment);
+    return
   }
 
   remove(id: string) {

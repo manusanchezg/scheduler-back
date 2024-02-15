@@ -1,6 +1,7 @@
 import { ObjectType, Field, Int, ID, Float } from '@nestjs/graphql';
 import { IsNotEmpty, IsOptional, IsUUID } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Business } from '../../business/entities/business.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'services' })
 @ObjectType()
@@ -29,7 +30,8 @@ export class Service {
   @IsOptional()
   service_description?: string;
 
-  @Column('varchar')
+  @ManyToOne(() => Business, (business) => business.business_id)
+  // @Column('varchar')
   @Field(() => String)
   @IsUUID()
   business_id: string;

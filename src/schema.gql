@@ -38,7 +38,7 @@ type Appointment {
   service_id: String!
   employee_id: String!
   date_time: DateTime!
-  status: [String!]!
+  status: String
 }
 
 """
@@ -79,7 +79,7 @@ type AuthResponse {
 
 type Query {
   appointments: [Appointment!]!
-  appointment(id: Int!): Appointment!
+  appointment(id: ID!): Appointment!
   getBusinesses: [Business!]!
   business(id: String!): Business!
   availability(id: Int!): Availability!
@@ -88,7 +88,7 @@ type Query {
   creditCard(id: Int!): CreditCard!
   services: [Service!]!
   service(id: Int!): Service!
-  employee(id: Int!): Employee!
+  employee(id: ID!): Employee!
   revalidate: AuthResponse!
 }
 
@@ -101,7 +101,7 @@ enum ValidRoles {
 type Mutation {
   createAppointment(createAppointmentInput: CreateAppointmentInput!): Appointment!
   updateAppointment(updateAppointmentInput: UpdateAppointmentInput!): Appointment!
-  removeAppointment(id: Int!): Appointment!
+  removeAppointment(id: ID!): Appointment!
   createBusiness(createBusinessInput: CreateBusinessInput!): Business!
   updateBusiness(updateBusinessInput: UpdateBusinessInput!): Business!
   removeBusiness(id: Int!): Business!
@@ -202,14 +202,16 @@ input UpdateServiceInput {
 }
 
 input CreateEmployeeInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  employee_name: String!
+  employee_position: String!
+  business_id: String!
 }
 
 input UpdateEmployeeInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  employee_name: String
+  employee_position: String
+  business_id: ID!
+  id: ID!
 }
 
 input SignupInput {
