@@ -3,6 +3,7 @@ import { IsNotEmpty, IsOptional, IsUUID } from 'class-validator';
 import { Business } from '../../business/entities/business.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
+
 @Entity({ name: 'services' })
 @ObjectType()
 export class Service {
