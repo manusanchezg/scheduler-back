@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
 import { AvailabilityService } from './availability.service';
 import { Availability } from './entities/availability.entity';
 import { UpdateAvailabilityInput, CreateAvailabilityInput } from './dto/inputs';
@@ -8,36 +8,40 @@ export class AvailabilityResolver {
   constructor(private readonly availabilityService: AvailabilityService) {}
 
   @Mutation(() => Availability)
-  createAvailability(
+  async createAvailability(
     @Args('createAvailabilityInput')
     createAvailabilityInput: CreateAvailabilityInput,
-  ) {
+  ): Promise<Availability> {
     return this.availabilityService.create(createAvailabilityInput);
   }
 
-  @Query(() => [Availability], { name: 'availability' })
-  findAll() {
-    return this.availabilityService.findAll();
+  @Query(() => [Availability], { name: 'availabilities' })
+  async findAll(): Promise<Availability[]> {
+    return await this.availabilityService.findAll();
   }
 
   @Query(() => Availability, { name: 'availability' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.availabilityService.findOne(id);
+  async findOne(
+    @Args('id', { type: () => ID }) id: string,
+  ): Promise<Availability> {
+    return await this.availabilityService.findOne(id);
   }
 
   @Mutation(() => Availability)
-  updateAvailability(
+  async updateAvailability(
     @Args('updateAvailabilityInput')
     updateAvailabilityInput: UpdateAvailabilityInput,
-  ) {
-    return this.availabilityService.update(
+  ): Promise<Availability> {
+    return await this.availabilityService.update(
       updateAvailabilityInput.id,
       updateAvailabilityInput,
     );
   }
 
   @Mutation(() => Availability)
-  removeAvailability(@Args('id', { type: () => Int }) id: number) {
-    return this.availabilityService.remove(id);
+  async removeAvailability(
+    @Args('id', { type: () => ID }) id: string,
+  ): Promise<Availability> {
+    return await this.availabilityService.remove(id);
   }
 }

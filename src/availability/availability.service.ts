@@ -1,25 +1,49 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UpdateAvailabilityInput, CreateAvailabilityInput } from './dto/inputs';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Availability } from './entities/availability.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AvailabilityService {
-  create(createAvailabilityInput: CreateAvailabilityInput) {
-    return 'This action adds a new availability';
+  constructor(
+    @InjectRepository(Availability)
+    private readonly availabilityRepository: Repository<Availability>,
+  ) {}
+  async create(
+    createAvailabilityInput: CreateAvailabilityInput,
+  ): Promise<Availability> {
+    const newAvailability = this.availabilityRepository.create(
+      createAvailabilityInput,
+    );
+    return await this.availabilityRepository.save(newAvailability);
   }
 
-  findAll() {
-    return `This action returns all availability`;
+  async findAll(): Promise<Availability[]> {
+    return await this.availabilityRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} availability`;
+  async findOne(id: string): Promise<Availability> {
+    const availability = this.availabilityRepository.findOneBy({
+      av_id: id,
+    });
+    if (!availability)
+      throw new NotFoundException(`Availability with id #${id} not found`);
+
+    return availability;
   }
 
-  update(id: number, updateAvailabilityInput: UpdateAvailabilityInput) {
-    return `This action updates a #${id} availability`;
+  async update(
+    id: string,
+    updateAvailabilityInput: UpdateAvailabilityInput,
+  ): Promise<Availability> {
+    await this.findOne(id);
+    return await this.availabilityRepository.preload(updateAvailabilityInput);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} availability`;
+  async remove(id: string): Promise<Availability> {
+    const availability = this.findOne(id);
+    await this.availabilityRepository.softDelete(id);
+    return { ...availability, av_id: id };
   }
 }

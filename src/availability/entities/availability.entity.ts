@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int, ID, Float } from '@nestjs/graphql';
 import { Business } from 'src/business/entities/business.entity';
+import { dayOfWeek } from 'src/helpers/dayOfWeek.enum';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'availability' })
@@ -9,26 +10,9 @@ export class Availability {
   @PrimaryGeneratedColumn('uuid')
   av_id: string;
 
-  @Field(() => String)
-  @Column({
-    enum: [
-      'monday',
-      'tuesday',
-      'wednesday',
-      'thursday',
-      'friday',
-      'saturday',
-      'sunday',
-    ],
-  })
-  day_of_week:
-    | 'monday'
-    | 'tuesday'
-    | 'wednesday'
-    | 'thursday'
-    | 'friday'
-    | 'saturday'
-    | 'sunday';
+  @Field(() => dayOfWeek)
+  @Column('char varying')
+  day_of_week: dayOfWeek;
 
   @Field(() => String)
   @Column('varchar')
@@ -39,7 +23,7 @@ export class Availability {
   duration: number;
 
   @Field(() => String)
-  // @Column('uuid')
   @ManyToOne(() => Business, business => business.business_id)
+  // @Column('uuid')
   business_id: string;
 }

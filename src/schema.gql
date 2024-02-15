@@ -82,7 +82,7 @@ type Query {
   appointment(id: ID!): Appointment!
   getBusinesses: [Business!]!
   business(id: String!): Business!
-  availability(id: Int!): Availability!
+  availability(id: ID!): Availability!
   users(roles: [ValidRoles!] = []): [User!]!
   user(id: ID!): User!
   creditCard(id: Int!): CreditCard!
@@ -107,7 +107,7 @@ type Mutation {
   removeBusiness(id: Int!): Business!
   createAvailability(createAvailabilityInput: CreateAvailabilityInput!): Availability!
   updateAvailability(updateAvailabilityInput: UpdateAvailabilityInput!): Availability!
-  removeAvailability(id: Int!): Availability!
+  removeAvailability(id: ID!): Availability!
   blockUser(id: ID!): User!
   createCreditCard(createCreditCardInput: CreateCreditCardInput!): CreditCard!
   updateCreditCard(updateCreditCardInput: UpdateCreditCardInput!): CreditCard!
@@ -163,14 +163,18 @@ input UpdateBusinessInput {
 }
 
 input CreateAvailabilityInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  day_of_week: String!
+  start_time: String!
+  duration: Float!
+  business_id: String!
 }
 
 input UpdateAvailabilityInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  day_of_week: String
+  start_time: String
+  duration: Float
+  business_id: String
+  id: ID!
 }
 
 input CreateCreditCardInput {
