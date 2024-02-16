@@ -37,18 +37,16 @@ export class AppointmentsService {
     updateAppointmentInput: UpdateAppointmentInput,
   ): Promise<Appointment> {
     await this.findOneById(id);
-    const appointment = this.appointmentsRepository.preload(
+    const appointment = await this.appointmentsRepository.preload(
       updateAppointmentInput,
     );
 
     if (!appointment) {
       throw new NotFoundException(`Appointment with id #${id} not found`);
     }
-    console.log(appointment)
+    console.log(appointment);
 
-    // TODO: No overload matches this call i dont know why?
-    // return this.appointmentsRepository.save(appointment);
-    return
+    return this.appointmentsRepository.save(appointment);
   }
 
   remove(id: string) {

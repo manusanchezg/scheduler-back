@@ -3,6 +3,7 @@ import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Business } from 'src/business/entities/business.entity';
 import { Employee } from 'src/employee/entities/employee.entity';
 import { Service } from 'src/service/entities/service.entity';
+import { AppointmentStatus } from 'src/helpers/AppointmentStatus.enum';
 
 @Entity({ name: 'appointments' })
 @ObjectType()
@@ -39,10 +40,13 @@ export class Appointment {
   date_time: Date;
 
   @Column({
-    enum: ['approved', 'canceled', 'postponed', 'pending'],
+    enum: AppointmentStatus,
     nullable: true,
-    default: 'pending',
+    default: AppointmentStatus.PENDING,
   })
-  @Field(() => String, { defaultValue: 'pending', nullable: true })
-  status?: 'approved' | 'canceled' | 'postponed' | 'pending' = 'pending';
+  @Field(() => AppointmentStatus, {
+    defaultValue: AppointmentStatus.PENDING,
+    nullable: true,
+  })
+  status?: AppointmentStatus = AppointmentStatus.PENDING;
 }

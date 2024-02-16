@@ -11,7 +11,7 @@ export class Availability {
   av_id: string;
 
   @Field(() => dayOfWeek)
-  @Column('char varying')
+  @Column({ enum: dayOfWeek })
   day_of_week: dayOfWeek;
 
   @Field(() => String)
@@ -23,7 +23,7 @@ export class Availability {
   duration: number;
 
   @Field(() => String)
-  @ManyToOne(() => Business, business => business.business_id)
+  @ManyToOne(() => Business, (business) => business.business_id)
   // @Column('uuid')
   business_id: string;
 }

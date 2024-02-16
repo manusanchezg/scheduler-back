@@ -38,7 +38,7 @@ type Appointment {
   service_id: String!
   employee_id: String!
   date_time: DateTime!
-  status: String
+  status: AppointmentStatus
 }
 
 """
@@ -46,12 +46,29 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+enum AppointmentStatus {
+  APPROVED
+  CANCELED
+  POSTPONED
+  PENDING
+}
+
 type Availability {
   av_id: ID!
-  day_of_week: String!
+  day_of_week: DayOfWeek!
   start_time: String!
   duration: Float!
   business_id: String!
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
 }
 
 type User {
@@ -82,6 +99,7 @@ type Query {
   appointment(id: ID!): Appointment!
   getBusinesses: [Business!]!
   business(id: String!): Business!
+  availabilities: [Availability!]!
   availability(id: ID!): Availability!
   users(roles: [ValidRoles!] = []): [User!]!
   user(id: ID!): User!
@@ -129,7 +147,7 @@ input CreateAppointmentInput {
   service_id: String!
   employee_id: String!
   date_time: DateTime!
-  status: String!
+  status: String = "3"
 }
 
 input UpdateAppointmentInput {
@@ -139,7 +157,7 @@ input UpdateAppointmentInput {
   service_id: String
   employee_id: String
   date_time: DateTime
-  status: String
+  status: String = "3"
   id: Int!
 }
 
@@ -163,14 +181,14 @@ input UpdateBusinessInput {
 }
 
 input CreateAvailabilityInput {
-  day_of_week: String!
+  day_of_week: DayOfWeek!
   start_time: String!
   duration: Float!
   business_id: String!
 }
 
 input UpdateAvailabilityInput {
-  day_of_week: String
+  day_of_week: DayOfWeek
   start_time: String
   duration: Float
   business_id: String
