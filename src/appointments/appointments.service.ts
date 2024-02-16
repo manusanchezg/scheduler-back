@@ -24,7 +24,7 @@ export class AppointmentsService {
   }
 
   async findOneById(id: string): Promise<Appointment> {
-    const appointment = this.appointmentsRepository.findOneBy({
+    const appointment = await this.appointmentsRepository.findOneBy({
       id,
     });
     if (!appointment)

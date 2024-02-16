@@ -32,6 +32,6 @@ export class CreateAppointmentInput {
   @IsDateString()
   date_time: Date;
   
-  @Field(() => String, {nullable: true})
+  @Field(() => AppointmentStatus, {nullable: true})
   status?: AppointmentStatus = AppointmentStatus.PENDING
 }

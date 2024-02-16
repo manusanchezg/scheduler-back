@@ -147,7 +147,7 @@ input CreateAppointmentInput {
   service_id: String!
   employee_id: String!
   date_time: DateTime!
-  status: String = "3"
+  status: AppointmentStatus = PENDING
 }
 
 input UpdateAppointmentInput {
@@ -157,8 +157,8 @@ input UpdateAppointmentInput {
   service_id: String
   employee_id: String
   date_time: DateTime
-  status: String = "3"
-  id: Int!
+  status: AppointmentStatus = PENDING
+  id: ID!
 }
 
 input CreateBusinessInput {

@@ -1,5 +1,5 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Business } from 'src/business/entities/business.entity';
 import { Employee } from 'src/employee/entities/employee.entity';
 import { Service } from 'src/service/entities/service.entity';
@@ -8,7 +8,7 @@ import { AppointmentStatus } from 'src/helpers/AppointmentStatus.enum';
 @Entity({ name: 'appointments' })
 @ObjectType()
 export class Appointment {
-  @PrimaryColumn('uuid')
+  @PrimaryGeneratedColumn('uuid')
   @Field(() => ID)
   id: string;
 
@@ -35,7 +35,7 @@ export class Appointment {
   @Field(() => String)
   employee_id: string;
 
-  @Column('date')
+  @Column('timestamp')
   @Field(() => Date)
   date_time: Date;
 
