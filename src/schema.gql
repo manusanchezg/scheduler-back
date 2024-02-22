@@ -38,7 +38,7 @@ type Appointment {
   service_id: String!
   employee_id: String!
   date_time: DateTime!
-  status: AppointmentStatus
+  appointment_status: AppointmentStatus!
 }
 
 """
@@ -147,7 +147,7 @@ input CreateAppointmentInput {
   service_id: String!
   employee_id: String!
   date_time: DateTime!
-  status: AppointmentStatus = PENDING
+  appointment_status: AppointmentStatus = PENDING
 }
 
 input UpdateAppointmentInput {
@@ -157,7 +157,7 @@ input UpdateAppointmentInput {
   service_id: String
   employee_id: String
   date_time: DateTime
-  status: AppointmentStatus = PENDING
+  appointment_status: AppointmentStatus! = PENDING
   id: ID!
 }
 
